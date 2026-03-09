@@ -2,9 +2,19 @@
 
 A comprehensive financial management application with AI-powered insights, simulations, and personalized recommendations.
 
-## 🚀 One-Command Local Demo
+## Screenshots
 
-> **TL;DR**: Clone → run one command → both services up at `http://localhost:8000` (backend) + auto-selected frontend port.
+| Login | Profile Selection |
+|:---:|:---:|
+| ![Login Screen](frontend/docs/pics/pics-01-login-screen-working.png) | ![Profile Selection](frontend/docs/pics/pics-02-profile-selection-screen.png) |
+
+| Dashboard | AI Actions |
+|:---:|:---:|
+| ![Dashboard](frontend/docs/pics/pics-04-genz-dashboard.png) | ![AI Actions](frontend/docs/pics/pics-03-genz-spending-tracker.png) |
+
+## One-Command Local Demo
+
+> **TL;DR**: Clone, run one command, both services start at `http://localhost:8000` (backend) + auto-selected frontend port.
 
 ### macOS/Linux
 ```bash
@@ -17,50 +27,53 @@ powershell -ExecutionPolicy Bypass -File .\dev.ps1
 ```
 
 The scripts will:
-- ✅ Check Python 3 + Node.js requirements  
-- ✅ Set up Python virtual environment & install backend deps
-- ✅ Start backend on **`http://localhost:8000`**
-- ✅ Install frontend deps & find first available port (3000→3001→3002→3003)
-- ✅ Start frontend with clear URL output
-- ✅ Run smoke test to verify both services
-
-### What You'll See
-```
-🚀 Backend starting on http://localhost:8000
-🎯 Frontend starting on http://localhost:3001 (first available port)
-✅ Both services ready - smoke test passed!
-
-📱 Open your browser: http://localhost:3001
-```
+- Check Python 3 + Node.js requirements
+- Set up Python virtual environment & install backend deps
+- Start backend on **`http://localhost:8000`**
+- Install frontend deps & find first available port (3000-3003)
+- Start frontend with clear URL output
+- Run smoke test to verify both services
 
 ### Manual Testing Checklist
 After services start, quickly verify:
-1. **Login Flow**: Click "Continue with FaceID" → Select a profile
-2. **Navigation**: Test Goals, AI Actions, Simulations tabs  
+1. **Login Flow**: Click "Continue with FaceID" then select a profile
+2. **Navigation**: Test Goals, AI Actions, Simulations tabs
 3. **Deep Dive**: Click any "Deep Dive Analysis" button
 4. **Simulation**: Start a simulation (Job Loss, Medical Crisis, etc.)
 5. **Backend API**: Visit `http://localhost:8000/health` (should return `{"status": "ok"}`)
 
 ---
 
-## 🚀 Live Production Application
+## Architecture
 
-- **Frontend**: https://sparrow-finance-app.netlify.app
-- **Backend**: https://feeble-bite-production.up.railway.app
+### Frontend (Next.js 14)
+- **Framework**: Next.js 14 with App Router
+- **Styling**: Tailwind CSS
+- **Features**: Responsive design, real-time financial data, AI-powered recommendations, interactive simulations
 
-## 📋 Advanced Setup
+### Backend (FastAPI)
+- **Framework**: FastAPI (Python 3.11)
+- **Database**: PostgreSQL
+- **Features**: RESTful API, AI/ML integration, financial calculations, data processing
+
+## Key Features
+
+- **Financial Dashboard** - Net worth tracking, asset/liability breakdown, financial health metrics
+- **AI-Powered Insights** - Transaction analysis, personalized recommendations, savings opportunities
+- **Financial Simulations** - Job loss, medical crisis, market crash, home purchase, emergency fund scenarios
+- **Market Data Integration** - Real-time stock prices, market trends, portfolio tracking
+
+## Development Setup
 
 ### Prerequisites
 - Node.js 18+ and npm
 - Python 3.11+
-- Railway CLI: `npm install -g @railway/cli`
-- Netlify CLI: `npm install -g netlify-cli`
 
-### Development Setup
+### Manual Setup
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd Sparrow
+cd FinAI
 
 # Install frontend dependencies
 cd frontend
@@ -78,69 +91,7 @@ npm run dev
 uvicorn main:app --reload
 ```
 
-### Production Deployment
-```bash
-# Deploy both frontend and backend
-./deploy.sh
-
-# Or deploy individually:
-# Backend
-cd backend/python_engine && railway up
-
-# Frontend
-cd frontend && npm run build && netlify deploy --prod
-```
-
-## 🏗️ Architecture
-
-### Frontend (Next.js 14)
-- **Framework**: Next.js 14 with App Router
-- **Styling**: Tailwind CSS
-- **Deployment**: Netlify
-- **Features**: 
-  - Responsive design
-  - Real-time financial data
-  - AI-powered recommendations
-  - Interactive simulations
-
-### Backend (FastAPI)
-- **Framework**: FastAPI (Python 3.11)
-- **Database**: PostgreSQL (Railway managed)
-- **Deployment**: Railway
-- **Features**:
-  - RESTful API
-  - AI/ML integration
-  - Financial calculations
-  - Data processing
-
-## 🔧 Key Features
-
-### Financial Dashboard
-- Net worth tracking
-- Asset/liability breakdown
-- Financial health metrics
-- Recent activity feed
-
-### AI-Powered Insights
-- Transaction analysis
-- Personalized recommendations
-- Savings opportunities
-- Automated actions
-
-### Financial Simulations
-- Job loss scenarios
-- Medical crisis planning
-- Market crash impact
-- Home purchase planning
-- Emergency fund strategies
-
-### Market Data Integration
-- Real-time stock prices
-- Market trends
-- Portfolio tracking
-- Investment insights
-
-## 📊 API Endpoints
+## API Endpoints
 
 ### Core Endpoints
 - `GET /health` - Health check
@@ -153,109 +104,24 @@ cd frontend && npm run build && netlify deploy --prod
 - `GET /ai/actions` - AI recommendations
 - `POST /ai/analyze` - Transaction analysis
 
-## 🧪 Testing
+## Environment Variables
 
-### Run All Tests
-```bash
-# Frontend tests
-cd frontend && npm test
-
-# Backend tests
-cd backend/python_engine && python -m pytest
-
-# Integration tests
-npx playwright test
-```
-
-### Health Checks
-```bash
-# Backend health
-curl https://feeble-bite-production.up.railway.app/health
-
-# Frontend health
-curl -I https://sparrow-finance-app.netlify.app
-```
-
-## 🔐 Environment Variables
-
-### Backend (Railway)
+### Backend
 - `DATABASE_URL` - PostgreSQL connection
 - `OPENAI_API_KEY` - OpenAI API access
 - `ANTHROPIC_API_KEY` - Anthropic API access
 - `FMP_API_KEY` - Financial Modeling Prep API
 
-### Frontend (Netlify)
+### Frontend
 - `NEXT_PUBLIC_API_URL` - Backend API URL
 - `NEXT_PUBLIC_ENVIRONMENT` - Environment
 
-## 📈 Performance
+## Documentation
 
-- **Frontend Load Time**: < 2 seconds
-- **API Response Time**: ~389ms average
-- **Database Connection**: Healthy
-- **Uptime**: 99.9%+
+- [Deployment Guide](DEPLOYMENT_GUIDE.md)
+- [API Documentation](docs/)
+- [Architecture Overview](docs/backend-engineering-spec.md)
 
-## 🚨 Troubleshooting
-
-### Common Issues
-
-1. **Database Connection**
-   ```bash
-   cd backend/python_engine
-   railway logs
-   ```
-
-2. **Frontend Build Issues**
-   ```bash
-   cd frontend
-   npm run build
-   ```
-
-3. **API Rate Limiting**
-   - FMP API: Using cached data as fallback
-   - OpenAI API: Fallback to Anthropic
-
-### Health Check Commands
-```bash
-# Check backend status
-curl https://feeble-bite-production.up.railway.app/health
-
-# Check frontend status
-curl -I https://sparrow-finance-app.netlify.app
-
-# Check database connection
-curl https://feeble-bite-production.up.railway.app/db/health
-```
-
-## 📚 Documentation
-
-- [Deployment Guide](DEPLOYMENT_GUIDE.md) - Complete deployment instructions
-- [API Documentation](docs/) - API reference and examples
-- [Architecture Overview](docs/backend-engineering-spec.md) - System design
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests: `npm test && python -m pytest`
-5. Deploy: `./deploy.sh`
-6. Submit a pull request
-
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
-
-## 🆘 Support
-
-For deployment issues:
-1. Check the [Deployment Guide](DEPLOYMENT_GUIDE.md)
-2. Review service-specific logs
-3. Run health checks
-4. Contact the development team
-
----
-
-**Status**: ✅ Production Ready  
-**Last Updated**: August 2025  
-**Version**: 1.0.0
