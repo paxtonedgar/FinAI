@@ -109,3 +109,5 @@ dist/
 build/
 # Local Netlify folder
 .netlify
+__pycache__/
+*.pyc
